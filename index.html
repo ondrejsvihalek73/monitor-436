@@ -173,6 +173,11 @@ h1 .red{color:var(--accent)}
 .fsel{padding:7px 12px; border:1px solid var(--line); border-radius:99px; background:var(--card);
   color:var(--ink); font-family:var(--body); font-size:13.5px; cursor:pointer; max-width:220px}
 .fsel:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.freset{width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:var(--muted);
+  cursor:pointer; font-size:13px; line-height:1; display:inline-flex; align-items:center; justify-content:center; padding:0}
+.freset:hover{border-color:var(--accent); color:var(--accent)}
+.freset:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.freset[hidden]{display:none}
 
 /* — karty aktivit — */
 .cause{background:var(--card); border:1px solid var(--line); border-radius:6px; margin:0 0 16px; overflow:hidden}
@@ -298,6 +303,7 @@ footer p{max-width:85ch; margin:0 0 8px}
     <select id="fJmeno" class="fsel" aria-label="Filtrovat podle jména"></select>
     <select id="fMes" class="fsel" aria-label="Filtrovat podle měsíce a roku"></select>
     <input id="hledat" type="search" placeholder="Hledat v klíčových slovech…" aria-label="Hledat v klíčových slovech">
+    <button id="fReset" class="freset" type="button" aria-label="Zrušit všechny filtry" title="Zrušit všechny filtry" hidden>✕</button>
   </div>
 
   <div id="seznam"></div>
@@ -522,7 +528,12 @@ function uplatni(){
     if(ok)videt++;
   });
   document.getElementById("zadne").classList.toggle("ukaz",videt===0);
+  document.getElementById("fReset").hidden=!(q||ep||jm||me);
 }
+document.getElementById("fReset").addEventListener("click",()=>{
+  vstup.value=""; selEp.value=""; selJmeno.value=""; selMes.value="";
+  uplatni();
+});
 selEp.addEventListener("change",uplatni);
 vstup.addEventListener("input",uplatni);
 selJmeno.addEventListener("change",uplatni);
