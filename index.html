@@ -375,6 +375,8 @@ const EPIZODY = {
 };
 const MESICE=["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"];
 const mesLbl=m=>{const [r,mm]=m.split("-");return MESICE[+mm-1]+" "+r;};
+const MESZKR=["led","úno","bře","dub","kvě","čer","čvc","srp","zář","říj","lis","pro"];
+const mesKr=m=>{const [r,mm]=m.split("-");return MESZKR[+mm-1]+" "+r.slice(2);};
 
 const PRICINY = [
  {
@@ -471,7 +473,7 @@ seznam.innerHTML=PRICINY.map(c=>{
     <span class="c-num${c.meta?" meta":""}">${c.meta?"motiv":"aktivita "+c.num}</span>
     <div class="c-twrap">
       <h2 class="c-title">${c.title}</h2>
-      <span class="c-mes" title="Období epizod, v nichž aktivita zazněla">${mesice.map(mesLbl).join(" · ")}</span>
+      <span class="c-mes" title="Období epizod, v nichž aktivita zazněla">${mesice.map(mesKr).join(" · ")}</span>
     </div>
   </div>
   <div class="c-grid">
