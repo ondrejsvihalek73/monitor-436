@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Co je doma, to se počítá aneb 4:36</title>
+<meta name="description" content="Sledujeme a dokumentujeme aktivity modelu 4:36, které přinášejí určitým způsobem a určitým lidem prospěch. Údaje jsou neověřené a vycházejí z veřejných zdrojů a tvrzení.">
+<meta name="theme-color" content="#171719">
+<meta property="og:title" content="Co je doma, to se počítá aneb 4:36">
+<meta property="og:description" content="Sledujeme a dokumentujeme aktivity modelu 4:36, které přinášejí určitým způsobem a určitým lidem prospěch.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23171719'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='23' font-weight='900' fill='%23cd2208' text-anchor='middle'%3E4:36%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* layout: plná černá lišta + bílý hero po vzoru kecyapolitika.cz, pod tím jednosloupcový dossier */
+  --paper:#ffffff;
+  --card:#f7f7f6;
+  --ink:#171719;
+  --muted:#565c64;
+  --line:#e2e2e0;
+  --accent:#cd2208;      /* signální červeň webu Kecy a politika */
+  --accent-soft:#fbe9e5;
+  --band:#171719;
+  --band-ink:#ffffff;
+  --warn-bg:#faf3df;
+  --warn-line:#d9c489;
+  --chip:#eeeeec;
+  /* kategorická paleta treemapy (validováno pro světlý povrch) */
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#e87ba4; --s6:#008300; --s7:#6250d6; --s8:#e34948;
+  --display:"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --body:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  --mono:"IBM Plex Mono","Consolas",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121214; --card:#1c1c1f; --ink:#ececea; --muted:#9aa0a8;
+    --line:#2c2c30; --accent:#f0492a; --accent-soft:#3a201a;
+    --band:#0c0c0e; --band-ink:#f2f2f0; --warn-bg:#2d2817; --warn-line:#6d5c26; --chip:#26262a;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+    --s5:#d55181; --s6:#0ca30c; --s7:#9085e9; --s8:#e66767;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121214; --card:#1c1c1f; --ink:#ececea; --muted:#9aa0a8;
+  --line:#2c2c30; --accent:#f0492a; --accent-soft:#3a201a;
+  --band:#0c0c0e; --band-ink:#f2f2f0; --warn-bg:#2d2817; --warn-line:#6d5c26; --chip:#26262a;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#0ca30c; --s7:#9085e9; --s8:#e66767;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.55;
+}
+a{color:var(--accent)}
+.wrap{max-width:1060px; margin:0 auto; padding:0 20px 64px}
+.hwrap{max-width:1060px; margin:0 auto; padding:0 20px}
+
+/* — horní lišta — */
+.topband{background:var(--band); color:var(--band-ink); position:sticky; top:0; z-index:100}
+.topband .hwrap{display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:12px; padding-bottom:12px}
+.brand{font-family:var(--display); font-size:19px; letter-spacing:.09em; text-transform:uppercase; display:inline-flex; align-items:baseline; gap:10px}
+.brand .amp{color:var(--accent)}
+.rec{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--band-ink); opacity:.85; text-transform:uppercase}
+.rec::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--accent); animation:puls 2.4s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){ .rec::before{animation:none} }
+@keyframes puls{0%,100%{opacity:1}50%{opacity:.35}}
+a.brand{color:var(--band-ink); text-decoration:none}
+.tright{display:flex; align-items:center; gap:16px}
+.nav{position:relative}
+.burger{background:none; border:0; cursor:pointer; width:40px; height:34px;
+  display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; border-radius:4px}
+.burger span{display:block; width:20px; height:2px; background:var(--band-ink);
+  transition:transform .25s ease, opacity .2s ease}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (prefers-reduced-motion: reduce){ .burger span{transition:none} }
+.burger:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.menu{position:absolute; right:0; top:calc(100% + 10px); background:var(--card); border:1px solid var(--line);
+  border-radius:6px; min-width:232px; padding:8px; display:none; z-index:50; box-shadow:0 10px 28px rgba(0,0,0,.18)}
+.menu.open{display:block}
+.menu a{display:block; padding:9px 12px; color:var(--ink); text-decoration:none; border-radius:4px; font-size:14.5px}
+.menu a:hover{background:var(--chip)}
+.menu a:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.menu .mep{border-top:1px solid var(--line); margin-top:6px; padding-top:10px}
+.zpet{margin-top:26px; font-size:14.5px}
+
+/* — hero — */
+.hero{border-bottom:3px solid var(--ink)}
+.hero .hwrap{padding-top:40px; padding-bottom:26px}
+h1{
+  font-family:var(--display); font-weight:400; text-transform:uppercase;
+  font-size:clamp(42px,7.5vw,76px); line-height:.98; letter-spacing:.015em;
+  margin:0; text-wrap:balance;
+}
+h1 .red{color:var(--accent)}
+.sub{color:var(--muted); font-size:17px; max-width:66ch; margin:14px 0 0}
+.statusbar{display:flex; gap:22px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; color:var(--muted); padding:16px 0 0}
+.statusbar b{color:var(--ink); font-weight:500}
+
+@media (max-width:420px){
+  .hwrap,.wrap{padding-left:16px; padding-right:16px}
+  .hero .hwrap{padding-top:28px; padding-bottom:20px}
+  .c-head,.c-grid,.chips,.drefs{padding-left:16px; padding-right:16px}
+  .stat{min-width:110px}
+  .filter{gap:8px}
+  #hledat{max-width:none}
+}
+
+/* — upozornění — */
+.notice{background:var(--warn-bg); border:1px solid var(--warn-line); border-left:5px solid var(--warn-line);
+  padding:13px 16px; margin:26px 0 0; font-size:14.5px; border-radius:4px}
+.notice strong{font-weight:700}
+
+/* — metoda — */
+.method{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:18px 20px; margin:26px 0 0;
+  display:grid; grid-template-columns:auto 1fr; gap:4px 18px; align-items:start}
+.method .big{font-family:var(--display); font-size:44px; color:var(--accent); line-height:1; padding-top:2px}
+.method h2{font-family:var(--display); font-weight:400; text-transform:uppercase; letter-spacing:.04em; font-size:21px; margin:0 0 4px}
+.method p{margin:0; font-size:14.5px; color:var(--muted); max-width:78ch}
+@media (max-width:520px){ .method{grid-template-columns:1fr} }
+
+.mstat{font-family:var(--mono); font-size:11.5px; color:var(--muted); margin:10px 0 0; font-variant-numeric:tabular-nums}
+
+/* — kondenzovaný souhrn aktivit — */
+.sum{background:var(--paper); border:1px solid var(--line); border-radius:6px; margin-top:26px; overflow:hidden}
+.sum-h{display:flex; justify-content:space-between; align-items:baseline; gap:12px; padding:9px 14px 7px;
+  background:var(--band); color:var(--band-ink)}
+.sum-h b{font-family:var(--display); font-weight:400; font-size:18px; letter-spacing:.08em; text-transform:uppercase}
+.sum-h span{font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:.06em}
+.sum-list{max-height:170px; overflow-y:auto; overscroll-behavior:contain}
+.srow{display:grid; grid-template-columns:auto 1fr minmax(0,230px) auto; gap:10px; align-items:center; width:100%;
+  text-align:left; background:none; border:0; border-bottom:1px solid var(--line); padding:5px 14px; cursor:pointer; font:inherit; color:inherit}
+.srow:last-child{border-bottom:0}
+.srow:hover{background:var(--chip)}
+.srow:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.srow .sb{font-family:var(--display); font-size:15px; color:var(--accent); min-width:2.2ch; letter-spacing:.04em; line-height:1}
+.srow .st{font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.srow .sn{font-size:11.5px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.srow .sd{font-family:var(--mono); font-size:11px; color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums}
+@media (max-width:640px){ .srow{grid-template-columns:auto 1fr auto} .srow .sn{display:none} }
+.cause.vybrana{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
+
+/* — treemap jmen — */
+.tmap{position:relative; height:190px; margin-top:12px}
+@media (max-width:520px){ .tmap{height:230px} }
+.tnode{position:absolute; border-radius:4px; overflow:hidden;
+  padding:4px 6px; cursor:pointer; border:0; text-align:left; font:inherit; display:block}
+.tnode:hover{opacity:.86}
+.tnode:focus-visible{outline:2px solid var(--ink); outline-offset:1px}
+.tname{font-weight:600; line-height:1.12; display:block; white-space:normal; overflow-wrap:anywhere; hyphens:auto}
+.tval{font-family:var(--mono); font-size:10.5px; opacity:.85; display:block; margin-top:1px}
+
+/* — filtr — */
+.filter{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:34px 0 14px}
+.filter .lbl{font-family:var(--mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.fbtn{font-family:var(--display); font-size:15px; letter-spacing:.06em; text-transform:uppercase;
+  padding:6px 16px 5px; border-radius:99px; border:1px solid var(--line);
+  background:var(--card); color:var(--ink); cursor:pointer}
+.fbtn:hover{border-color:var(--muted)}
+.fbtn[aria-pressed="true"]{background:var(--accent); color:#fff; border-color:var(--accent)}
+.fbtn:focus-visible, a:focus-visible, .ep-link:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+#hledat{flex:1; min-width:170px; max-width:300px; padding:7px 12px; border:1px solid var(--line); border-radius:99px;
+  background:var(--card); color:var(--ink); font-family:var(--body); font-size:14px}
+#hledat::placeholder{color:var(--muted)}
+.fsel{padding:7px 12px; border:1px solid var(--line); border-radius:99px; background:var(--card);
+  color:var(--ink); font-family:var(--body); font-size:13.5px; cursor:pointer; max-width:220px}
+.fsel:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* — karty aktivit — */
+.cause{background:var(--card); border:1px solid var(--line); border-radius:6px; margin:0 0 16px; overflow:hidden}
+.cause.skryta{display:none}
+.c-head{display:flex; gap:14px; align-items:baseline; padding:16px 20px 0}
+.c-num{font-family:var(--mono); font-size:13px; color:var(--accent); border:1px solid var(--accent);
+  border-radius:4px; padding:2px 8px; white-space:nowrap; align-self:flex-start; margin-top:3px}
+.c-num.meta{color:var(--ink); border-color:var(--muted)}
+.c-title{font-family:var(--body); font-size:18.5px; font-weight:800; margin:0; text-wrap:balance}
+.c-mes{margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--muted); white-space:nowrap; align-self:center; padding-top:3px}
+@media (max-width:640px){ .c-head{flex-wrap:wrap} .c-mes{margin-left:0; width:100%; padding-top:0} }
+.c-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px 28px; padding:12px 20px 0}
+@media (max-width:640px){ .c-grid{grid-template-columns:1fr} }
+.c-grid h3{font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted); margin:8px 0 3px; font-weight:700}
+.c-grid p{margin:0; font-size:14.5px}
+.chips{display:flex; gap:7px; flex-wrap:wrap; align-items:center; padding:14px 20px 0}
+.chips+.chips{padding-top:7px; padding-bottom:2px}
+.grp{font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-right:4px; white-space:nowrap}
+.chip{background:var(--chip); border-radius:99px; padding:3px 11px; font-size:12.5px; color:var(--muted)}
+.chip.osoba{background:var(--accent-soft); color:var(--accent); font-weight:600}
+.drefs{padding:10px 20px 16px}
+.drefs summary{cursor:pointer; font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--muted);
+  list-style:none; display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:99px;
+  padding:5px 13px; user-select:none}
+.drefs summary::-webkit-details-marker{display:none}
+.drefs summary::before{content:"▸"; color:var(--accent); font-size:11px}
+.drefs[open] summary::before{content:"▾"}
+.drefs summary:hover{border-color:var(--muted); color:var(--ink)}
+.drefs summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.refs{display:flex; gap:8px; flex-wrap:wrap; padding:12px 0 0}
+.ep-link{display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:12.5px;
+  text-decoration:none; border:1px solid var(--line); border-radius:4px; padding:5px 10px; color:var(--ink); background:var(--paper)}
+.ep-link:hover{border-color:var(--accent)}
+.ep-link .e{color:var(--accent); font-weight:500}
+.ep-link .t{color:var(--muted)}
+
+/* — sekce — */
+section{margin-top:44px}
+.sec-h{font-family:var(--display); font-weight:400; text-transform:uppercase; letter-spacing:.04em;
+  font-size:30px; margin:0 0 4px; padding-bottom:8px; border-bottom:3px solid var(--ink); position:relative}
+.sec-h::after{content:""; position:absolute; left:0; bottom:-3px; width:64px; height:3px; background:var(--accent)}
+.sec-sub{color:var(--muted); font-size:14.5px; margin:8px 0 18px}
+
+/* — epizody — */
+.eps{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+.ep-card{background:var(--card); border:1px solid var(--line); border-radius:6px; padding:14px 16px}
+.ep-card .n{font-family:var(--mono); font-size:12px; color:var(--accent)}
+.ep-card h3{font-family:var(--body); font-size:15.5px; font-weight:800; margin:4px 0 6px}
+.ep-card p{margin:0 0 10px; font-size:13px; color:var(--muted)}
+.ep-card a{font-size:13px}
+
+/* — patička — */
+footer{margin-top:52px; border-top:1px solid var(--line); padding-top:18px; font-size:13.5px; color:var(--muted)}
+footer p{max-width:85ch; margin:0 0 8px}
+.zadne{display:none; color:var(--muted); font-style:italic; padding:18px 4px}
+.zadne.ukaz{display:block}
+</style>
+</head>
+<body>
+
+<div class="topband">
+    <div class="hwrap">
+      <a class="brand" href="#uvod">Monitor<span class="amp">&amp;</span>4:36</a>
+      <div class="tright">
+        <span class="rec">Monitor běží</span>
+        <nav class="nav" aria-label="Hlavní menu">
+          <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+          <div class="menu" id="menu">
+            <a href="#frekvence">Četnost jmen</a>
+            <a href="#prehled">Přehled 4:36 aktivit</a>
+            <a href="#epizody" class="mep">Analyzované epizody a metodika →</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+<header class="site" id="uvod">
+  <div class="hero" id="hero">
+    <div class="hwrap">
+      <h1>Co je doma, to se počítá <span class="red">aneb 4:36</span></h1>
+      <p class="sub">Sledujeme a dokumentujeme aktivity modelu 4:36, které přinášejí určitým způsobem a určitým lidem prospěch. Údaje jsou neověřené a vycházejí z veřejných zdrojů a tvrzení.</p>
+      <div class="statusbar">
+        <span>Poslední aktualizace: <b>18.&nbsp;11.&nbsp;2026</b></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap" id="hlavni">
+
+<div class="notice">
+  <strong>Čtěte s rozmyslem:</strong> stránka shrnuje tvrzení a interpretace moderátorů podcastu, nikoli nezávisle ověřená fakta. Analýza vychází z přepisů dialogu a pokrývá jen volně dostupné informace.
+</div>
+
+<div class="method">
+  <div class="big">4:36</div>
+  <div>
+    <h2>Průřezová metoda: „model 4:36“</h2>
+    <p>Podle moderátorů společný nástroj většiny kroků níže: poslanecké návrhy zákonů místo vládních a zrychlené čtení (z&nbsp;18&nbsp;% případů v&nbsp;první Babišově vládě na&nbsp;~60&nbsp;% nyní), čímž se obchází legislativní rada vlády, ministerstva, připomínková místa — a nově i grémium sněmovny. Název odkazuje na hlasování o&nbsp;mediálních poplatcích ve&nbsp;4:36 ráno.</p>
+    <p class="mstat">50&nbsp;epizod · 10&nbsp;aktivit · 169&nbsp;odkazů · poslední díl 292&nbsp;(17.&nbsp;11.)</p>
+  </div>
+</div>
+
+<section class="sum" aria-label="Souhrn aktivit">
+  <div class="sum-h"><b>Souhrn 4:36 aktivit</b><span id="sum-pocet"></span></div>
+  <div class="sum-list" id="sum-list"></div>
+</section>
+
+<section id="frekvence">
+  <h2 class="sec-h">Četnost jmen</h2>
+  <p class="sec-sub">Velikost dlaždice = počet časových odkazů do epizod, kterými je jméno doloženo. Kliknutím na dlaždici se níže nastaví filtr aktivit.</p>
+  <div class="tmap" id="tmap" role="group" aria-label="Treemapa četnosti jmen"></div>
+</section>
+
+<section id="prehled">
+  <h2 class="sec-h">Přehled 4:36 aktivit</h2>
+  <p class="sec-sub">Opakuje-li se stejná aktivita ve více epizodách, kroky jsou shrnuté pod ní. Časové odkazy vedou na přesné místo ve videu.</p>
+
+  <div class="filter">
+    <select id="fEp" class="fsel" aria-label="Filtrovat podle epizody"></select>
+    <select id="fJmeno" class="fsel" aria-label="Filtrovat podle jména"></select>
+    <select id="fMes" class="fsel" aria-label="Filtrovat podle měsíce a roku"></select>
+    <input id="hledat" type="search" placeholder="Hledat v klíčových slovech…" aria-label="Hledat v klíčových slovech">
+  </div>
+
+  <div id="seznam"></div>
+  <p class="zadne" id="zadne">Žádná aktivita neodpovídá zvolenému filtru.</p>
+</section>
+
+</div>
+
+<div class="wrap" id="stranka-epizody" hidden>
+<section>
+  <h1 class="sec-h">Analyzované epizody</h1>
+  <p class="sec-sub">Řadové díly podcastu; rozhovorové SPECIÁLy se do analýzy nezařazují.</p>
+  <div class="eps" id="eps"></div>
+  <footer id="metodika">
+  <p><strong>Metodika.</strong> Z YouTube se načte automatický český přepis volné části epizody. Z něj se vybírají pasáže, v nichž moderátoři popisují legislativní, personální či exekutivní kroky spojované s osobním prospěchem premiéra nebo jeho firem. Tvrzení se přiřadí k aktivitě, doplní se aktéři a klíčová slova. Automatický přepis místy komolí jména.</p>
+  <p><strong>Limity.</strong> Jde o jednostranný kriticky zaměřený pořad; stránka tvrzení neověřuje ani nedoplňuje stanoviska druhé strany. Pro úsudek o faktech je třeba sáhnout po primárních zdrojích (sněmovní tisky, rozhodnutí soudů, úřední dokumenty).</p>
+  <p>Zdroj: <a href="https://www.youtube.com/@kecyapolitika" rel="noopener">YouTube — Kecy a politika</a> · Sestaveno automatizovanou analýzou přepisů.</p>
+  </footer>
+  <p class="zpet"><a href="#uvod">← Zpět na přehled</a></p>
+</section>
+</div>
+
+<script>
+const EPIZODY = {
+  243:{id:"POI-GVdcwcY", mes:"2025-12", title:"Nanebevzetí Andreje Babiše", note:"Agrofert do trustu: „trezor s klíči pro děti“; konflikt zájmů trvá.", datum:"9. 12. 2025"},
+  244:{id:"r5uZF4RegAQ", mes:"2025-12", title:"Námluvy Babiše s Pavlem", note:"Sofiina volba: pekárny v Německu vs. české firmy; mandát = nebýt vydán.", datum:"16. 12. 2025"},
+  245:{id:"Y2gGudj7RSo", mes:"2025-12", title:"Vánoční otázkový speciál", note:"„Den hanby“ v Bruselu; ČT, aby nebyla „hlasnou troubou“.", datum:"23. 12. 2025"},
+  246:{id:"5vAuOadEejE", mes:"2025-12", title:"Politický bizár roku 2025", note:"Svěřenský fond platný jen „po dobu výkonu funkce člena vlády“.", datum:"30. 12. 2025"},
+  247:{id:"Nv-gCHjLUZA", mes:"2026-01", title:"Okamura táhne Babiše do Ruska", note:"Novoroční projev; vše ve sněmovně čeká na hlasování o vydání.", datum:"6. 1. 2026"},
+  248:{id:"W0oVrtSgWEg", mes:"2026-01", title:"Jde uřídit šestikolku?", note:"Nová vláda; Turek „neministr“; Protopopová zmocněnkyní vlády.", datum:"13. 1. 2026"},
+  249:{id:"so0QpyIpMeA", mes:"2026-01", title:"Fiala skončil a nic nepochopil", note:"Kongres ODS; konec éry Petra Fialy.", datum:"20. 1. 2026"},
+  250:{id:"snwutv3YWGQ", mes:"2026-01", title:"Je Trump Nero nebo Caligula?", note:"Grónsko; zablokovaný Mercosur jako „vítězství Agrofertu“.", datum:"27. 1. 2026"},
+  251:{id:"s7BQHbBTTKE", mes:"2026-02", title:"Kdo ukončí Turka a pohlídá Macinku?", note:"SMS Macinky; statisícová demonstrace; Bartha reprezentuje ČR.", datum:"3. 2. 2026"},
+  252:{id:"CjSSeVXn7wk", mes:"2026-02", title:"Voodoo ekonomika Aleny Schillerové", note:"Zrušit Národní rozpočtovou radu; škrty BIS a NBÚ; celníci.", datum:"10. 2. 2026"},
+  253:{id:"iwvX8WAAXv8", mes:"2026-02", title:"Buranokracie Macinky a Turka", note:"Blokace kontrolních výborů sněmovny.", datum:"17. 2. 2026"},
+  254:{id:"pDnHr3LgfDY", mes:"2026-02", title:"Podlehne Babiš Rajchlovi s Okamurou?", note:"Výměny: VZP, pošta, Lesy; lavírování kvůli soudu.", datum:"24. 2. 2026"},
+  255:{id:"aCTfHdYRZqA", mes:"2026-03", title:"Babišův Velký skok", note:"Personální ovládnutí státu; služební zákon; zabavení bez rozsudku.", datum:"3. 3. 2026"},
+  256:{id:"ovpaDmxu-gY", mes:"2026-03", title:"Babiš s Ficem obnovují Československo", note:"Glejt od Šutaje Eštoka; nevydání k soudu; kdo nahradí Moravce.", datum:"10. 3. 2026"},
+  257:{id:"dZ4xBNzJIsE", mes:"2026-03", title:"Vláda utahuje šrouby", note:"Zákon o „cizích agentech“ širší než ruská předloha.", datum:"17. 3. 2026"},
+  258:{id:"mu130McjSNk", mes:"2026-03", title:"Letná proti ruskému vlivu", note:"Demonstrace; zákon o agentech „po rusku“.", datum:"24. 3. 2026"},
+  259:{id:"hKa5eqbA-20", mes:"2026-03", title:"Babiš a Fiala – pumpaři z Průhonic", note:"Odtáhnout voliče od nezávislých médií.", datum:"31. 3. 2026"},
+  260:{id:"FV3joJvBuWM", mes:"2026-04", title:"Fico a Babiš válčí s Evropou", note:"„V6 = Agrofert 6“; odejmout jmenovací pravomoci prezidenta.", datum:"7. 4. 2026"},
+  261:{id:"WcTFhN6JVM8", mes:"2026-04", title:"Konec orbánismu v Maďarsku?", note:"Maďarské volby a budoucnost orbánismu.", datum:"14. 4. 2026"},
+  262:{id:"M2M_GQQsXWA", mes:"2026-04", title:"České budování orbánismu", note:"SZIF: 7 mld. vracet nemusí; „političtí komisaři“ v ČT.", datum:"21. 4. 2026"},
+  263:{id:"0I85JuhnLS8", mes:"2026-04", title:"Jan Grolich - Iluzionista z Brna", note:"Jan Grolich a krajská politika.", datum:"28. 4. 2026"},
+  264:{id:"uDi33Fo1hgQ", mes:"2026-05", title:"Jihočeská džamahírije Martina Kuby", note:"Přepis není k dispozici — díl bez automatických titulků.", datum:"5. 5. 2026"},
+  265:{id:"-72I48mkhlE", mes:"2026-05", title:"Turecké hospodaření Aleny Schillerové", note:"Rozpočtové triky; Kobra 26 na Rohlík; konsolidace represivních složek.", datum:"12. 5. 2026"},
+  266:{id:"bJjcTbHzf5I", mes:"2026-05", title:"Svatá válka se sudetskými Němci", note:"Sudetoněmecká karta v politice.", datum:"19. 5. 2026"},
+  267:{id:"vRwmg8OMul8", mes:"2026-05", title:"Rasputin v české vládě", note:"Bleskový přesun agend vlády; zákony píšou právníci Agrofertu.", datum:"26. 5. 2026"},
+  268:{id:"0_ZgrBNGgCM", mes:"2026-06", title:"Meme ekonomie Aleny Schillerové", note:"FAÚ jako „nová tajná služba“; útok na ČNB.", datum:"2. 6. 2026"},
+  269:{id:"DXEjYmHl_zQ", mes:"2026-06", title:"Radikální otočky Andreje Babiše", note:"V4 domlouvá Bartha; tlak na Mafru a Seznam.", datum:"9. 6. 2026"},
+  270:{id:"hwVNZaj7V6I", mes:"2026-06", title:"Amnestie pro Andreje Babiše", note:"Novela střetu zájmů jako „amnestie“; vymáhání dotací jen 4 roky zpět.", datum:"16. 6. 2026"},
+  271:{id:"GA0M-IzEVAE", mes:"2026-06", title:"Macinka - jediný politik ve vládě", note:"Ovládnutí veřejnoprávních médií „finančně, personálně, obsahově“.", datum:"23. 6. 2026"},
+  272:{id:"wcvGGu02m7M", mes:"2026-06", title:"Proč se Motoristé radikalizují?", note:"ÚOHS: „vybere si ho sám“; škrt obrany kvůli dotacím.", datum:"30. 6. 2026"},
+  273:{id:"1nKMuZD3ass", mes:"2026-07", title:"Zakažte prezidentovi jezdit na motorce!", note:"Nový zákon o střetu zájmů jako „amnestie“; 65 % potravin; 14 mld. na prevenci.", datum:"7. 7. 2026"},
+  274:{id:"rU0LDinEJKw", mes:"2026-07", title:"Prezident vs. Babiš – 6:0", note:"Summit NATO v Ankaře; „přebírá český stát“, penězovody z pojištění a dotací.", datum:"14. 7. 2026"},
+  275:{id:"bQKofyOjrPw", mes:"2026-07", title:"Mozkové blackouty Andreje Babiše", note:"Letní díl; dotace do Agrofertu přes resort zdravotnictví.", datum:"21. 7. 2026"},
+  276:{id:"x41jcSymyFg", mes:"2026-07", title:"Tünde Bartha přebírá moc", note:"Novela jednacího řádu vlády; utajení hlasování; pozemková reforma.", datum:"28. 7. 2026"},
+  277:{id:"NdMCSPwCVrw", mes:"2026-08", title:"Vláda proti ose zla", note:"Deficit kryjící výdaje blízké holdingu; kultura za loajalitu.", datum:"4. 8. 2026"},
+  278:{id:"hh32qF7jQdQ", mes:"2026-08", title:"Ovládne Babiš Senát?", note:"Scénáře ovládnutí Senátu; satelitní klub.", datum:"11. 8. 2026"},
+  279:{id:"xG6JNJp26P8", mes:"2026-08", title:"Babišův únos státu", note:"Únikové doložky rozpočtu; deficit přes Bezpečnostní radu státu; „samovláda“.", datum:"18. 8. 2026"},
+  280:{id:"0TMqS1TimjI", mes:"2026-08", title:"Měl by Petr Pavel mlčet?", note:"Letiště Praha — bleskové jmenování; zahraniční politika jako zájmy korporace.", datum:"25. 8. 2026"},
+  281:{id:"CbII2_PN8lI", mes:"2026-09", title:"Tajné služby ovládne Babiš", note:"Jeden člověk nad všemi silovými složkami; rozpočet BIS; rozpočty ÚS a NKÚ.", datum:"1. 9. 2026"},
+  282:{id:"b3SlXR2Z874", mes:"2026-09", title:"Macinka a Okamura – popcornoví politici", note:"Rozpočtová mystifikace; mediální prostor; Mladá fronta 2013.", datum:"8. 9. 2026"},
+  283:{id:"16706W7sVgo", mes:"2026-09", title:"Rozpad české bezpečnostní politiky", note:"Silové složky, dezinformační ekosystém, obranné výdaje do civilních staveb.", datum:"15. 9. 2026"},
+  284:{id:"ujSqgGoHb3Y", mes:"2026-09", title:"Naši milí kolaboranti", note:"„Malé domů“ — miliardy ročně do vlastní firmy.", datum:"22. 9. 2026"},
+  285:{id:"m7ATrZM_1pk", mes:"2026-09", title:"Babišova válka proti soudcům", note:"Rozsudek v kauze FAU; zajišťovací příkazy; „gumové zákony“; útoky na justici.", datum:"29. 9. 2026"},
+  286:{id:"3OZPrmTm9co", mes:"2026-10", title:"Velké komunální nevěry", note:"Povolební vyjednávání; PGRLF a antimonopolní dohled.", datum:"6. 10. 2026"},
+  287:{id:"PnzNTZ3gvA8", mes:"2026-10", title:"Volby - začátek konce Babiše?", note:"Kauza Cheb; výhrůžky městům rozpočtem.", datum:"13. 10. 2026"},
+  288:{id:"z9XADOvGrOI", mes:"2026-10", title:"Babišova prohra bez gelu", note:"Národní sportovní agentura pod premiéra; povolební situace.", datum:"20. 10. 2026"},
+  289:{id:"5q1sZOo6Mnc", mes:"2026-10", title:"Největší chyba Andreje Babiše", note:"Hlasování 4:36, obejití grémia, reakce veřejnosti, média."},
+  290:{id:"-kVvlOFbono", mes:"2026-11", title:"Zarzycký chce vytlačit Babiše", note:"Novela trestního řádu, ovládnutí ČT, pnutí uvnitř ANO."},
+  291:{id:"YQkdb1MscFs", mes:"2026-11", title:"Kdo bude lídrem opozice?", note:"Opoziční scéna; legislativa „na míru“ a resortní kroky."},
+  292:{id:"VPeDSMuUhuU", mes:"2026-11", title:"Může Babiš ignorovat Letnou?", note:"Letná, model 4:36, ÚOHS, BIS, dotace, střet zájmů.", datum:"17. 11. 2026"}
+};
+const MESICE=["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"];
+const mesLbl=m=>{const [r,mm]=m.split("-");return MESICE[+mm-1]+" "+r;};
+
+const PRICINY = [
+ {
+  num:"1", title:"Zbavit se povinnosti vrátit dotace (~7,5 mld. Kč)",
+  benefit:"Andrej Babiš, Agrofert — vymáhané dotace by byly „škrtnuty, vymazány, promlčeny“.",
+  actors:"Vládní poslanci: do novely zákona o střetu zájmů ve zrychleném čtení vložen paragraf zkracující lhůtu SZIF pro vymáhání neoprávněných dotací z 10 na 4 roky, a to i zpětně. V ep. 290 rámováno jako „generální amnestie na věčné časy“. Kořeny dle jarních dílů: v červnu novela zkrátila vymáhání na 4 roky zpět a PGRLF vyzval 28 firem (ep. 270); SZIF podle moderátorů rozhodl, že ~7 mld. Agrofert vracet nemusí (ep. 262); hrozba veta rozpočtu EU kvůli dotacím (ep. 255).",
+  people:["Andrej Babiš"],
+  keywords:["dotace","SZIF","střet zájmů","promlčení","generální amnestie","7,5 miliardy","zrychlené čtení","PGRLF","veto rozpočtu EU"],
+  refs:[{ep:292,t:771,lbl:"12:51 vložený paragraf"},{ep:292,t:801,lbl:"13:21 7,5 mld."},{ep:290,t:2907,lbl:"48:27 „amnestie“"},{ep:270,t:694,lbl:"11:34 vymáhání jen 4 roky zpět"},{ep:270,t:1841,lbl:"30:41 PGRLF vyzval 28 firem"},{ep:262,t:2490,lbl:"41:30 SZIF: 7 mld. vracet nemusí"},{ep:255,t:2078,lbl:"34:38 veto rozpočtu EU kvůli dotacím"}]
+ },
+ {
+  num:"2", title:"Odvrátit trestní stíhání (Čapí hnízdo)",
+  benefit:"Andrej Babiš osobně — kauza se podle moderátorů legislativně „zneškodní“.",
+  actors:"Ministr spravedlnosti Jeroným Tejc: v tichosti schválené novele trestního řádu obrátil klíčový paragraf — místo odstranění soudního „ping-pongu“ (odvolací soud by mohl sám rozhodnout, kauza by prý byla dávno uzavřena) posiluje soudy nižších stupňů. Ministerstvo spravedlnosti podle ep. 292 „řeší v první řadě jen kauzy Andreje Babiše“. Už v ep. 285 moderátoři popisují útoky vlády na justici a řeči o „objednaných rozsudcích“ a žalobu pro porušení zákona jako chystaný nástroj ministra Tejce. Začátek linie v zimě: vše ve sněmovně čekalo na odkládané hlasování o vydání (ep. 247–248), koalice podle moderátorů sestavená „výměnou za imunitu“; Babiš si „koupil glejt“ od Šutaje Eštoka a Slovensko ho nevydává k soudu (ep. 244, 256); Protopopová (dle ep. 248 umožnila před výslechem odvézt syna na Krym) jmenována zmocněnkyní vlády.",
+  people:["Andrej Babiš","Jeroným Tejc","Jana Nagyová"],
+  keywords:["Čapí hnízdo","trestní řád","ping-pong","soudy nižší instance","konečné řešení","žaloba pro porušení zákona","justice","vydání sněmovnou","imunita","glejt StB"],
+  refs:[{ep:290,t:2659,lbl:"44:19 novela potichu"},{ep:290,t:2795,lbl:"46:35 role Tejce"},{ep:291,t:2131,lbl:"35:31 změna tr. řádu"},{ep:292,t:813,lbl:"13:33 „jedním paragrafem“"},{ep:285,t:141,lbl:"2:21 „objednané rozsudky“"},{ep:285,t:1792,lbl:"29:52 žaloba pro porušení zákona"},{ep:270,t:480,lbl:"8:00 Tejc a trestní řád"},{ep:256,t:1850,lbl:"30:50 nevydání k soudu"},{ep:256,t:1661,lbl:"27:41 glejt od Šutaje Eštoka"},{ep:254,t:3086,lbl:"51:26 lavírování kvůli soudu"},{ep:252,t:1151,lbl:"19:11 nenechat se vydat soudu"},{ep:248,t:1244,lbl:"20:44 odkládané vydání sněmovnou"},{ep:248,t:2395,lbl:"39:55 Protopopová zmocněnkyní vlády"},{ep:247,t:1270,lbl:"21:10 vše čeká na hlasování o vydání"},{ep:244,t:2457,lbl:"40:57 milost by si spolupodepsal sám"},{ep:244,t:2548,lbl:"42:28 koupený glejt k StB"}]
+ },
+ {
+  num:"3", title:"Ovládnout kontrolní a bezpečnostní instituce",
+  benefit:"Agrofert (kartelové a oligopolní dohody bez dozoru), Babiš (vliv přesahující volební období).",
+  actors:"Babiš a Úřad vlády: „na tajňačku“ vypsané výběrové řízení na šéfa ÚOHS s lhůtou 5 pracovních dnů; souběžně únik o odebrání prověrky předsedovi Mlsnovi. Výhled: obdobná výměna ředitele BIS po Novém roce. Podle ep. 281 by poprvé od r. 1989 jeden člověk ovládl všechny silové složky (inspekce, policie, rozvědka, vojenské tajné služby, BIS, VSZ): netransparentní výměna šéfa civilní rozvědky, šéfa BIS si Babiš „vybere sám“, rozpočet BIS seškrtán o 240 mil. V ep. 286: PGRLF a protimonopolní dohled 15 let „v rukou skupin navázaných na Zemana a Babiše“. Zimní předehra dle ep. 252: Babiš chce zrušit Národní rozpočtovou radu („nebudete nám pískat ofsajdy“) a první rozpočet škrtá BIS 300 mil. a NBÚ 30 mil.; v ep. 268 útok na ČNB a ÚOHS, kterého „si vybere sám“ (ep. 272).",
+  people:["Andrej Babiš","Petr Mlsna"],
+  keywords:["ÚOHS","antimonopolní úřad","výběrové řízení","prověrka","BIS","kartelové dohody","silové složky","rozvědka","PGRLF","Národní rozpočtová rada","ČNB","NBÚ"],
+  refs:[{ep:292,t:441,lbl:"7:21 ÚOHS za 5 dnů"},{ep:292,t:551,lbl:"9:11 zájem Agrofertu"},{ep:292,t:689,lbl:"11:29 výhled BIS"},{ep:281,t:947,lbl:"15:47 všechny silové složky"},{ep:281,t:878,lbl:"14:38 šéf BIS"},{ep:281,t:1256,lbl:"20:56 rozpočet BIS −240 mil."},{ep:283,t:2330,lbl:"38:50 „zbývá BIS“"},{ep:286,t:2928,lbl:"48:48 PGRLF a antimonopol"},{ep:272,t:552,lbl:"9:12 ÚOHS: vybere si ho sám"},{ep:268,t:2266,lbl:"37:46 útok na ČNB"},{ep:252,t:653,lbl:"10:53 NRR je zbytečná, zrušit"},{ep:252,t:2855,lbl:"47:35 škrty pro BIS a NBÚ"}]
+ },
+ {
+  num:"4", title:"Odstranit veřejnou kontrolu rozhodování vlády",
+  benefit:"Ministři (hlasování bez osobní odpovědnosti), nepřímo Babiš („hlasuj, jak já chci“).",
+  actors:"Vláda: chystaná změna jednacího řádu vlády — jmenovité hlasování ministrů zveřejňováno až po 30 letech; moderátoři mluví o „plošné amnestii“ pro ministry. Podle ep. 276 novelu připravuje Tünde Bartha: věci bez připomínkových řízení, část bez projednání vládou (stačí premiér), vlastní legislativní iniciativa Barthy, utajení záznamů a hlasování na 30 let. Ep. 279: únikové doložky rozpočtu — deficit lze zvýšit o ~240 mld. jen souhlasem 5 členů Bezpečnostní rady státu, mimo parlament. Ep. 281: vláda smí škrtat rozpočty Ústavního soudu a NKÚ. Ep. 273: pozměňovací návrh Radka Vondráčka odebírá prezidentovi jmenovací pravomoci. Jarní předehra: bleskový přesun agend vlády k Bartě a 50 % zákonů bez připomínkových řízení — „zákony píšou právníci Agrofertu“ (ep. 267); zákony „přes bílé koně“ a služební zákon s rychlými vyhazovy (ep. 255); únikové doložky a +250 mld. přes BRS (ep. 265); blokace kontrolních výborů sněmovny (ep. 253); Bartha bez mandátu reprezentuje ČR na summitech (ep. 251, 269).",
+  people:["Andrej Babiš","Tünde Bartha","Radek Vondráček"],
+  keywords:["jednací řád vlády","hlasování ministrů","30 let","plošná amnestie","veřejná kontrola","připomínkové řízení","Bezpečnostní rada státu","únikové doložky","rozpočty ÚS a NKÚ","pravomoci prezidenta","bílí koně","služební zákon","kontrolní výbory"],
+  refs:[{ep:292,t:980,lbl:"16:20 hlasování po 30 letech"},{ep:276,t:1159,lbl:"19:19 jednací řád bez připomínek"},{ep:276,t:1238,lbl:"20:38 utajení na 30 let"},{ep:279,t:640,lbl:"10:40 únikové doložky"},{ep:279,t:937,lbl:"15:37 deficit mimo parlament"},{ep:279,t:1224,lbl:"20:24 jednací řád — Bartha"},{ep:281,t:1316,lbl:"21:56 rozpočty ÚS a NKÚ"},{ep:273,t:436,lbl:"7:16 pravomoci prezidenta"},{ep:269,t:554,lbl:"9:14 V4 domlouvá Bartha"},{ep:267,t:201,lbl:"3:21 bleskový přesun agend vlády"},{ep:267,t:2673,lbl:"44:33 50 % zákonů bez připomínek"},{ep:267,t:2767,lbl:"46:07 zákony píšou právníci Agrofertu"},{ep:265,t:1579,lbl:"26:19 únikové doložky"},{ep:265,t:1797,lbl:"29:57 +250 mld. přes BRS"},{ep:260,t:2598,lbl:"43:18 odejmout jmenovací pravomoci"},{ep:255,t:1115,lbl:"18:35 zákony přes „bílé koně“"},{ep:255,t:1389,lbl:"23:09 služební zákon: rychlé vyhazovy"},{ep:253,t:1801,lbl:"30:01 blokace kontrolních výborů"},{ep:251,t:2408,lbl:"40:08 Bartha reprezentuje ČR"}]
+ },
+ {
+  num:"5", title:"Směrovat peníze resortů do vlastních firem",
+  benefit:"Agrofert, Hartenberg — přímé obohacení holdingu z veřejných rozpočtů.",
+  actors:"Ekonomičtí ministři: zdravotnictví jako „průtokový ohřívač pro Agrofert“ (vyhlášky), zemědělství (státní organizace mají nakupovat potraviny „od českých firem“, tj. podle moderátorů od firem Babiše), doprava (Bednárik) a další — „desítky věcí odvozené od dvou zadání: problém a zájem Andreje Babiše“. Linie běží už od léta: usnesení o povinném odběru 65 % potravin pro státní instituce „ušité pro Agrofert“ (Prouza, ep. 273); 14 mld. na preventivní vyšetření „šitá parametry na míru“ zdravotnické firmě Babiše (ep. 273); navyšování peněz na preventivní programy a oplodnění přes ministra zdravotnictví (ep. 275); „posílání si miliard ze zdravotního pojištění a zemědělských dotací, ovládání strategických rezerv“ (ep. 274); pozemková reforma s předkupním právem pachtýřů na restituentskou půdu (ep. 276); deficit kryjící výdaje zdravotnické a agro divize (ep. 277); souhrnně „posílá si malé domů za miliardy ročně“ (ep. 284). Počátky už od prosince 2025: covidová paralela s výjimkou pro řezané květiny a úhradové vyhlášky VZP pro kliniky Hartenbergu (ep. 243), dotovaná elektřina pro Babišovy pekárny v Německu (ep. 244–245), Mercosur zablokovaný „ve prospěch Agrofertu“ (ep. 250), +7,5 mld. do SZIF v prvním rozpočtu (ep. 252), ministr zemědělství Šebestián „šlechtěný kvůli dotacím“ (ep. 247).",
+  people:["Andrej Babiš","Bednárik"],
+  keywords:["Agrofert","Hartenberg","vyhlášky","potraviny","průtokový ohřívač","zájem Babiše","zemědělství","65 % potravin","preventivní vyšetření","zdravotní pojištění","pozemková reforma","strategické rezervy","malé domů","VZP","Mercosur","elektřina"],
+  refs:[{ep:290,t:2885,lbl:"48:05 dvě zadání"},{ep:291,t:2180,lbl:"36:20 nákup potravin"},{ep:292,t:3071,lbl:"51:11 zdravotnictví"},{ep:291,t:2076,lbl:"34:36 firmy u státu"},{ep:273,t:670,lbl:"11:10 65 % potravin"},{ep:273,t:738,lbl:"12:18 14 mld. na prevenci"},{ep:275,t:1461,lbl:"24:21 dotace přes zdravotnictví"},{ep:274,t:2658,lbl:"44:18 penězovody"},{ep:276,t:2126,lbl:"35:26 pozemková reforma"},{ep:277,t:1990,lbl:"33:10 deficit pro divize"},{ep:284,t:3059,lbl:"50:59 „malé domů“"},{ep:272,t:2276,lbl:"37:56 škrt obrany kvůli dotacím"},{ep:262,t:2820,lbl:"47:00 oplodnění → Agrofert"},{ep:262,t:2977,lbl:"49:37 zadlužování kvůli čerpání"},{ep:256,t:2217,lbl:"36:57 spolupráce kvůli dotacím"},{ep:256,t:2310,lbl:"38:30 Istrochem a Taraba"},{ep:255,t:1812,lbl:"30:12 pozemková reforma"},{ep:252,t:1020,lbl:"17:00 naplnit fondy pro Agrofert"},{ep:252,t:2821,lbl:"47:01 +7,5 mld. do SZIF"},{ep:251,t:2690,lbl:"44:50 mimořádné dotace od Fica a Orbána"},{ep:250,t:594,lbl:"9:54 Mercosur: vítězem Agrofert"},{ep:247,t:2519,lbl:"41:59 Šebestián šlechtěný kvůli dotacím"},{ep:247,t:3075,lbl:"51:15 zakázky dopadají do jeho firem"},{ep:245,t:505,lbl:"8:25 elektřina pro jeho továrny"},{ep:244,t:489,lbl:"8:09 pekárny v Německu vs. české firmy"},{ep:243,t:2544,lbl:"42:24 výjimka pro řezané květiny"},{ep:243,t:2641,lbl:"44:01 VZP a kliniky Hartenbergu"}]
+ },
+ {
+  num:"6", title:"Ovládnout veřejnoprávní a mediální prostor",
+  benefit:"Babiš — aby se „o určitých věcech nepsalo“ (precedent Mafra); zrušení poplatků jako karta pro voliče.",
+  actors:"Vládní koalice a Okamura: hlasování 4:36 — obejití grémia sněmovny, preventivně pevný čas hlasování, odmítnuté přestávky; Okamura přiznal „konspirační přípravu“. Barták (vyvádění diváků z ochozu). Rajchl, Babiš, Okamura: útoky na konkrétní redaktory ČT/ČRo; dříve Rada ČT a „vyštvání“ Dvořáka či Moravce. Souběžně „paralelní mediální svět“ financovaný přes nastrčené firmy. Mlžení: „dobrovolné poplatky“, které by vyloučily kontrolu NKÚ. Hlubší linie dle ep. 282: vlivová skupina nasazená r. 2013 do Mladé fronty, zprávy od bezpečnostní divize Agrofertu; „paralyzoval média a teď dorazí veřejnoprávní“. Ep. 283: dezinformační ekosystém Babiše překrývající se s ruským, poradkyně Vachatová. Ep. 277: kultura výměnou za loajalitu (Národní divadlo, paralela s antichartou). Linie běží od zimy: napojení ČT na státní rozpočet — „já platím, já rozhoduji“ (ep. 251), ČT „aby si z ní SPD a Agrofert neudělali hlasnou troubu“ (ep. 245), „političtí komisaři“ v ČT a rozvrácení kulturních institucí (ep. 262), tlak na Mafru („necháte tam moje lidi“) a Seznam (ep. 269), plán ovládnutí „finančně, personálně, obsahově“ (ep. 271).",
+  people:["Andrej Babiš","Tomio Okamura","Jindřich Rajchl","Barták","Vachatová"],
+  keywords:["4:36","koncesionářské poplatky","ČT","ČRo","Rada ČT","Mafra","zestátnění","dobrovolné poplatky","NKÚ","grémium","ústavní žaloba","dezinformace","bezpečnostní divize Agrofertu","kultura","já platím, já rozhoduji","Seznam"],
+  refs:[{ep:289,t:353,lbl:"5:53 obejití grémia"},{ep:289,t:1597,lbl:"26:37 Okamura o přípravě"},{ep:289,t:2197,lbl:"36:37 precedent Mafra"},{ep:290,t:224,lbl:"3:44 cíl: ovládnutí ČT"},{ep:290,t:1427,lbl:"23:47 poplatky a NKÚ"},{ep:289,t:2647,lbl:"44:07 paralelní média"},{ep:282,t:450,lbl:"7:30 vlivová skupina v Mafře"},{ep:282,t:1849,lbl:"30:49 „dorazí veřejnoprávní“"},{ep:283,t:1932,lbl:"32:12 dezinformační ekosystém"},{ep:277,t:712,lbl:"11:52 kultura za loajalitu"},{ep:272,t:2926,lbl:"48:46 „kdo platí, rozhoduje“"},{ep:271,t:2143,lbl:"35:43 ovládnout veřejnoprávní média"},{ep:271,t:2884,lbl:"48:04 finančně, personálně, obsahově"},{ep:270,t:2212,lbl:"36:52 „dorazí veřejnoprávní“"},{ep:269,t:2862,lbl:"47:42 Mafra: „necháte tam moje lidi“"},{ep:269,t:2978,lbl:"49:38 tlak na Seznam"},{ep:262,t:1329,lbl:"22:09 „političtí komisaři“ v ČT"},{ep:262,t:1671,lbl:"27:51 rozvrátit kulturní instituce"},{ep:259,t:114,lbl:"1:54 odtáhnout voliče od médií"},{ep:256,t:2085,lbl:"34:45 kdo nahradí Moravce"},{ep:251,t:2904,lbl:"48:24 brutální tlak na ČT"},{ep:251,t:2961,lbl:"49:21 „já platím, já rozhoduji“"},{ep:245,t:1476,lbl:"24:36 ČT jako hlasná trouba Agrofertu"}]
+ },
+ {
+  num:"7", title:"Zneužít represivní aparát státu (kauza FAU)",
+  benefit:"Agrofert/Precheza — podle rozsudku citovaného moderátory šlo o likvidační zásah proti konkurenční firmě; motivem železniční vlečka a sklady u Prechezy.",
+  actors:"Podle rozsudku Krajského soudu (soudce Ondráček, červen 2026) byla akce proti firmě FAU Přerov „podnícena centrálně, pod tlakem z Prahy“: 8 zajišťovacích příkazů, celní správa, nahrávka o „zakleknutí“ na firmu; figurují Babiš (tehdy ministr financí) a Schillerová (náměstkyně). Moderátoři: „situace se dnes opakuje“ — chystané „gumové zákony“: odčerpání majetku nevysvětleného původu (sněmovní tisk 101) a prolomení mlčenlivosti advokátů. Širší linie z jara: zákon o „cizích agentech“ širší než ruská předloha (ep. 257–258), zabavování majetku bez rozsudku a policie pracující s udáními (ep. 255), celníci jako „soukromá policie Agrofertu“ (ep. 252), konsolidace represivních složek, zásah Kobry 26 proti Rohlíku a FAÚ jako „nová tajná služba“ (ep. 265, 268), rušení paragrafu o působení cizí moci (ep. 262).",
+  people:["Andrej Babiš","Alena Schillerová"],
+  keywords:["FAU","zajišťovací příkazy","zakleknutí","celní správa","gumové zákony","majetek nevysvětleného původu","mlčenlivost advokátů","Precheza","cizí agenti","FAÚ","celníci","Kobra 26"],
+  refs:[{ep:285,t:263,lbl:"4:23 rozsudek: tlak z Prahy"},{ep:285,t:553,lbl:"9:13 zajišťovací příkazy"},{ep:285,t:1543,lbl:"25:43 „zakleknout na FAU“"},{ep:285,t:1281,lbl:"21:21 „situace se opakuje“"},{ep:285,t:1895,lbl:"31:35 odčerpání majetku"},{ep:285,t:2016,lbl:"33:36 mlčenlivost advokátů"},{ep:268,t:426,lbl:"7:06 FAÚ jako nová tajná služba"},{ep:265,t:1216,lbl:"20:16 konsolidace represivních složek"},{ep:265,t:1401,lbl:"23:21 Kobra 26 na Rohlík"},{ep:262,t:2091,lbl:"34:51 rušení § o cizí moci"},{ep:258,t:3279,lbl:"54:39 zákon o agentech po rusku"},{ep:257,t:181,lbl:"3:01 zákon o „cizích agentech“"},{ep:257,t:2386,lbl:"39:46 širší než ruská předloha"},{ep:255,t:2316,lbl:"38:36 zabavení bez rozsudku"},{ep:255,t:2369,lbl:"39:29 policie a udání"},{ep:252,t:2581,lbl:"43:01 celníci jako soukromá policie"}]
+ },
+ {
+  num:"8", title:"Ovládnout státní firmy a veřejné investice",
+  benefit:"Vliv na rozdělování miliard mimo standardní kontrolu; u Letiště Praha moderátoři spekulují o přípravě levné privatizace.",
+  actors:"Bleskové jmenování Lašáka (dříve Babišem označovaného za „tuneláře“) do čela Letiště Praha — hypotéza moderátorů: „zničit a levně zprivatizovat“ (ep. 280). Národní sportovní agentura vyňata pod premiéra — „ruka na rozdělování 8 miliard“ (ep. 288). Obranné výdaje směrované do civilních staveb; karlovarské letiště „vnucené“ armádě (ep. 283). Počátky dle ep. 254–255: bleskové výměny ve VZP, České poště a Lesích ČR; SMS „odvolat šéfa VZP“; „vykostění“ nominačního zákona; personální ovládnutí státu jako program.",
+  people:["Andrej Babiš","Lašák"],
+  keywords:["Letiště Praha","privatizace","Národní sportovní agentura","8 miliard","obranné výdaje","karlovarské letiště","státní firmy","VZP","Česká pošta","Lesy ČR","nominační zákon"],
+  refs:[{ep:280,t:3064,lbl:"51:04 Letiště Praha"},{ep:288,t:1412,lbl:"23:32 NSA pod premiéra"},{ep:283,t:2553,lbl:"42:33 výdaje do civilních staveb"},{ep:283,t:2673,lbl:"44:33 karlovarské letiště"},{ep:271,t:2807,lbl:"46:47 ÚVN a státní firmy"},{ep:255,t:742,lbl:"12:22 personální ovládnutí státu"},{ep:255,t:981,lbl:"16:21 SMS: odvolat šéfa VZP"},{ep:255,t:1198,lbl:"19:58 vykostění nominačního zákona"},{ep:254,t:52,lbl:"0:52 výměny: VZP, pošta, Lesy"}]
+ },
+ {
+  num:"9", title:"Nový zákon o střetu zájmů — „amnestie i milost dohromady“",
+  benefit:"Babiš — premiér by směl podnikat a jeho firmy brát dotace i veřejné zakázky; podle moderátorů zároveň pojistka proti budoucímu stíhání.",
+  actors:"Poslanec Radek Vondráček: návrh zákona o střetu zájmů, podle něhož premiér „nešéfuje žádnému ministerstvu“, může tedy podnikat a brát dotace z kteréhokoli resortu; moderátoři jej čtou jako amnestii — „po čtyřech letech je všechno zapomenuto a premiér může tunelovat“. Rámec: Babišův „životní zápas“ o to, co s ním bude, až jednou ztratí imunitu (ep. 273). Linie začíná už v prosinci 2025 (ep. 243, 246): Agrofert „zamčený do trezoru s klíči pro děti“ — svěřenský fond RSVP Trust s účelem jen „po dobu výkonu funkce člena vlády“, podle moderátorů „habaďůra“, která konflikt zájmů neřeší; v červnu (ep. 270) novela čtená jako „amnestie Agrofertu“ s nárokovými dotacemi.",
+  people:["Andrej Babiš","Radek Vondráček"],
+  keywords:["střet zájmů","amnestie","dotace","veřejné zakázky","imunita","promlčení","Vondráček","svěřenský fond","trust","RSVP Trust"],
+  refs:[{ep:273,t:406,lbl:"6:46 návrh Vondráčka"},{ep:273,t:1752,lbl:"29:12 „amnestie i milost“"},{ep:273,t:2397,lbl:"39:57 „může tunelovat“"},{ep:273,t:2445,lbl:"40:45 životní zápas"},{ep:270,t:408,lbl:"6:48 novela = amnestie Agrofertu"},{ep:270,t:709,lbl:"11:49 fond a nárokové dotace"},{ep:270,t:2345,lbl:"39:05 zkroutit pravidla, držet aktiva"},{ep:255,t:1514,lbl:"25:14 „komický kodex“"},{ep:252,t:3183,lbl:"53:03 Agrofert se mu vrátí"},{ep:250,t:621,lbl:"10:21 stále ve střetu zájmů"},{ep:248,t:2672,lbl:"44:32 střet zájmů nevyřešil"},{ep:247,t:3037,lbl:"50:37 střet zájmů: „uherská habaďůra“"},{ep:246,t:2778,lbl:"46:18 fond jen po dobu funkce"},{ep:246,t:2980,lbl:"49:40 systematický konflikt zájmů"},{ep:243,t:724,lbl:"12:04 základní konflikt trvá"},{ep:243,t:1210,lbl:"20:10 majetek, co nevypadá jako tvůj"},{ep:243,t:1761,lbl:"29:21 Agrofert zamkl do trezoru"}]
+ },
+ {
+  num:"10", meta:true, title:"Udržet moc za každou cenu — moc jako ochrana před vězením",
+  benefit:"Babiš osobně. Zastřešující motiv: „jakákoliv ztráta moci může znamenat ztrátu svobody“.",
+  actors:"Babiš: podle moderátorů vyvolání „kulturní války“ hlasováním 4:36 po prohraných senátních a komunálních volbách, mobilizace voličů, líčení demonstrací jako „útoku na Kapitol“ a očekávání provokací kolem 17. listopadu. Letní a podzimní linie téhož motivu: „přebírá český stát ekonomicky, vlivově, personálně“ (ep. 274); vládnutí jako „zlatá horečka se státním majetkem“, stát „rukojmím podnikatelských zájmů jedné osoby“ (ep. 273); „Babišova samovláda“ (Pithart, ep. 279); teoretické ovládnutí Senátu přes satelitní klub (ep. 278); rozpočtová mystifikace Schillerové (ep. 282); kleptokracie po maďarském vzoru, „protektor Agrofertu nad ČR“ (ep. 283); „jde na podstatu režimu“ (ep. 286); kauza Cheb — podpora senátní kandidatury výměnou za politické krytí (ep. 287). Od prosince 2025: koalice sestavená tak, „aby ho nevydali soudu“ (ep. 247–248), gesta v Bruselu „výměnou za imunitu“ (ep. 245), „alfa a omega mandátu: nebýt vydán“ (ep. 244); agrobaroni podle moderátorů „platili SPD, motoristy i ANO“ (ep. 250), vládu „formují zájmy Agrofertu, Maďaři a Slováci“ (ep. 251), „V6 = Agrofert 6“ (ep. 260), „druhá republika“ (ep. 267), „nechají ho rozkrádat stát“ (ep. 271).",
+  people:["Andrej Babiš"],
+  keywords:["ztráta moci","ztráta svobody","mobilizace","provokace","kulturní válka","17. listopad","převzetí státu","kleptokracie","samovláda","Senát","kauza Cheb","imunita","V6","druhá republika"],
+  refs:[{ep:290,t:1686,lbl:"28:06 moc = svoboda"},{ep:289,t:1029,lbl:"17:09 motiv konfliktu"},{ep:292,t:2521,lbl:"42:01 „útok na Kapitol“"},{ep:274,t:2602,lbl:"43:22 převzetí státu"},{ep:273,t:1041,lbl:"17:21 „zlatá horečka“"},{ep:273,t:2507,lbl:"41:47 stát jako rukojmí"},{ep:279,t:1301,lbl:"21:41 „samovláda“"},{ep:278,t:2520,lbl:"42:00 ovládnutí Senátu"},{ep:282,t:1341,lbl:"22:21 rozpočtová mystifikace"},{ep:283,t:2361,lbl:"39:21 kleptokracie"},{ep:286,t:2745,lbl:"45:45 podstata režimu"},{ep:287,t:2856,lbl:"47:36 kauza Cheb"},{ep:271,t:1684,lbl:"28:04 „nechají ho rozkrádat stát“"},{ep:270,t:1265,lbl:"21:05 okno příležitostí"},{ep:270,t:2091,lbl:"34:51 bojí se osudu Nečase"},{ep:267,t:1591,lbl:"26:31 „druhá republika“"},{ep:265,t:2714,lbl:"45:14 dotace, voliči, žaloby"},{ep:260,t:2395,lbl:"39:55 „V6 = Agrofert 6“"},{ep:251,t:2817,lbl:"46:57 vládu formují zájmy Agrofertu"},{ep:250,t:633,lbl:"10:33 agrobaroni platili strany"},{ep:248,t:1935,lbl:"32:15 koalice, aby ho nevydali soudu"},{ep:245,t:650,lbl:"10:50 gesto výměnou za imunitu"},{ep:244,t:2210,lbl:"36:50 alfa a omega: nebýt vydán"}]
+ }
+];
+
+function fmt(t){const m=Math.floor(t/60),s=t%60;return m+":"+String(s).padStart(2,"0");}
+function yt(ep,t){return "https://www.youtube.com/watch?v="+EPIZODY[ep].id+"&t="+t+"s";}
+
+const seznam=document.getElementById("seznam");
+seznam.innerHTML=PRICINY.map(c=>{
+ const mesice=[...new Set(c.refs.map(r=>EPIZODY[r.ep].mes))].sort();
+ return `
+<article class="cause" id="akt-${c.num}" data-eps="${[...new Set(c.refs.map(r=>r.ep))].join(" ")}" data-mes="${mesice.join(" ")}" data-osoby="${(c.people||[]).join("|")}" data-kw="${(c.title+" "+(c.people||[]).join(" ")+" "+c.keywords.join(" ")+" "+mesice.map(mesLbl).join(" ")).toLowerCase()}">
+  <div class="c-head">
+    <span class="c-num${c.meta?" meta":""}">${c.meta?"motiv":"aktivita "+c.num}</span>
+    <h2 class="c-title">${c.title}</h2>
+    <span class="c-mes" title="Období epizod, v nichž aktivita zazněla">${mesice.map(mesLbl).join(" · ")}</span>
+  </div>
+  <div class="c-grid">
+    <div><h3>Kdo má prospěch</h3><p>${c.benefit}</p></div>
+    <div><h3>Kdo v krocích figuruje</h3><p>${c.actors}</p></div>
+  </div>
+  ${c.people&&c.people.length?`<div class="chips"><span class="grp">Jména</span>${c.people.map(k=>`<span class="chip osoba">${k}</span>`).join("")}</div>`:""}
+  <div class="chips"><span class="grp">Klíčová slova</span>${c.keywords.map(k=>`<span class="chip">${k}</span>`).join("")}</div>
+  <details class="drefs">
+    <summary>Odkazy do epizod (${c.refs.length})</summary>
+    <div class="refs">${c.refs.map(r=>`<a class="ep-link" href="${yt(r.ep,r.t)}" rel="noopener" title="Epizoda ${r.ep} — otevře YouTube v čase ${fmt(r.t)}"><span class="e">ep.&nbsp;${r.ep}</span><span class="t">${r.lbl}</span></a>`).join("")}</div>
+  </details>
+</article>`;}).join("");
+
+document.getElementById("eps").innerHTML=Object.keys(EPIZODY).sort((a,b)=>b-a).map(n=>{const e=EPIZODY[n];return `
+<div class="ep-card">
+  <div class="n">Epizoda ${n} · ${e.datum?e.datum:mesLbl(e.mes)}</div>
+  <h3>${e.title}</h3>
+  <p>${e.note}</p>
+  <a href="https://www.youtube.com/watch?v=${e.id}" rel="noopener">Přehrát na YouTube →</a>
+</div>`;}).join("");
+
+/* filtrování: epizoda × jméno × období × klíčová slova */
+const vstup=document.getElementById("hledat");
+const selEp=document.getElementById("fEp");
+const selJmeno=document.getElementById("fJmeno");
+const selMes=document.getElementById("fMes");
+
+selEp.innerHTML=`<option value="">Epizoda: vše</option>`+Object.keys(EPIZODY).sort((a,b)=>b-a).map(n=>`<option value="${n}">ep. ${n}</option>`).join("");
+const vsechnaJmena=[...new Set(PRICINY.flatMap(c=>c.people||[]))].sort((a,b)=>a.localeCompare(b,"cs"));
+selJmeno.innerHTML=`<option value="">Jméno: vše</option>`+vsechnaJmena.map(j=>`<option value="${j}">${j}</option>`).join("");
+const vsechnyMesice=[...new Set(Object.values(EPIZODY).map(e=>e.mes))].sort();
+selMes.innerHTML=`<option value="">Období: vše</option>`+vsechnyMesice.map(m=>`<option value="${m}">${mesLbl(m)}</option>`).join("");
+
+function uplatni(){
+  const q=vstup.value.trim().toLowerCase();
+  const ep=selEp.value, jm=selJmeno.value, me=selMes.value;
+  let videt=0;
+  document.querySelectorAll(".cause").forEach(el=>{
+    const okEp=!ep||el.dataset.eps.split(" ").includes(ep);
+    const okJm=!jm||el.dataset.osoby.split("|").includes(jm);
+    const okMe=!me||el.dataset.mes.split(" ").includes(me);
+    const okQ=!q||el.dataset.kw.includes(q);
+    const ok=okEp&&okJm&&okMe&&okQ;
+    el.classList.toggle("skryta",!ok);
+    if(ok)videt++;
+  });
+  document.getElementById("zadne").classList.toggle("ukaz",videt===0);
+}
+selEp.addEventListener("change",uplatni);
+vstup.addEventListener("input",uplatni);
+selJmeno.addEventListener("change",uplatni);
+selMes.addEventListener("change",uplatni);
+
+/* kondenzovaný souhrn aktivit (škáluje: pevná výška, roluje) */
+const mk=m=>{const[r,mm]=m.split("-");return (+mm)+"/"+r.slice(2);};
+function obdobiKratce(mes){
+  if(!mes.length)return "";
+  const a=mes[0],b=mes[mes.length-1];
+  if(a===b)return mk(a);
+  const ra=a.split("-")[0], rb=b.split("-")[0];
+  return (ra===rb ? (+a.split("-")[1]) : mk(a))+"–"+mk(b);
+}
+const sumList=document.getElementById("sum-list");
+sumList.innerHTML=PRICINY.map(c=>{
+  const mes=[...new Set(c.refs.map(r=>EPIZODY[r.ep].mes))].sort();
+  const prijmeni=(c.people||[]).map(p=>p.split(" ").pop());
+  const jm=prijmeni.slice(0,3).join(", ")+(prijmeni.length>3?" +"+(prijmeni.length-3):"");
+  return `<button class="srow" data-cil="akt-${c.num}" title="${c.title}">
+    <span class="sb">${c.meta?"M":c.num}</span>
+    <span class="st">${c.title}</span>
+    <span class="sn">${jm}</span>
+    <span class="sd">${obdobiKratce(mes)}</span>
+  </button>`;
+}).join("");
+document.getElementById("sum-pocet").textContent=PRICINY.length+" aktivit";
+sumList.querySelectorAll(".srow").forEach(b=>b.addEventListener("click",()=>{
+  vstup.value=""; selEp.value=""; selJmeno.value=""; selMes.value="";
+  uplatni();
+  const cil=document.getElementById(b.dataset.cil);
+  if(!cil)return;
+  cil.scrollIntoView({behavior:"smooth",block:"start"});
+  cil.classList.add("vybrana");
+  setTimeout(()=>cil.classList.remove("vybrana"),1800);
+}));
+
+/* treemapa jmen: velikost = počet časových odkazů aktivit, kde se jméno objevuje */
+const jmMapa=new Map();
+PRICINY.forEach(c=>{
+  const w=c.refs.length, eps=[...new Set(c.refs.map(r=>r.ep))];
+  (c.people||[]).forEach(p=>{
+    const z=jmMapa.get(p)||{tag:p,n:0,eps:new Set()};
+    z.n+=w; eps.forEach(e=>z.eps.add(e)); jmMapa.set(p,z);
+  });
+});
+const jmena2=[...jmMapa.values()].sort((a,b)=>b.n-a.n||a.tag.localeCompare(b.tag,"cs"));
+
+/* squarified treemap (Bruls et al.), mezery 2 px */
+function squarify(items,x,y,w,h,out){
+  if(!items.length)return;
+  if(items.length===1){out.push({...items[0],x,y,w,h});return;}
+  const celkem=items.reduce((s,i)=>s+i.plocha,0);
+  let rada=[],i=0,nejAspekt=Infinity;
+  const kratsi=()=>Math.min(w,h);
+  while(i<items.length){
+    const zkus=[...rada,items[i]];
+    const s=zkus.reduce((a,b)=>a+b.plocha,0);
+    const d=kratsi();
+    const asp=Math.max(...zkus.map(it=>{
+      const a=(s/d), b=it.plocha/a;
+      return Math.max(a/b,b/a);
+    }));
+    if(asp<=nejAspekt){rada=zkus;nejAspekt=asp;i++;}
+    else break;
+  }
+  const s=rada.reduce((a,b)=>a+b.plocha,0);
+  if(w>=h){
+    const sl=s/h; let cy=y;
+    rada.forEach(it=>{const vh=it.plocha/sl;out.push({...it,x,y:cy,w:sl,h:vh});cy+=vh;});
+    squarify(items.slice(rada.length),x+sl,y,w-sl,h,out);
+  }else{
+    const sv=s/w; let cx=x;
+    rada.forEach(it=>{const vw=it.plocha/sv;out.push({...it,x:cx,y,w:vw,h:sv});cx+=vw;});
+    squarify(items.slice(rada.length),x,y+sv,w,h-sv,out);
+  }
+}
+/* pevné přiřazení barev jménům (slot palety); nová jména dostanou slot hashem, barvy se nepřebarvují */
+const JMENO_SLOT={"Andrej Babiš":8,"Tomio Okamura":1,"Jindřich Rajchl":2,"Barták":3,
+  "Jeroným Tejc":4,"Jana Nagyová":5,"Bednárik":6,"Petr Mlsna":7,
+  "Tünde Bartha":2,"Radek Vondráček":4,"Alena Schillerová":6,"Vachatová":5,"Lašák":7};
+function slotJmena(j){
+  if(JMENO_SLOT[j])return JMENO_SLOT[j];
+  let h=5381; for(const ch of j)h=(h*33+ch.codePointAt(0))>>>0;
+  return (h%8)+1;
+}
+/* čitelnost: podle skutečné barvy dlaždice zvol bílý, nebo tmavý text (práh kontrastu 4,5:1) */
+function inkPro(el){
+  const m=getComputedStyle(el).backgroundColor.match(/(\d+),\s*(\d+),\s*(\d+)/);
+  if(!m)return "#fff";
+  const lin=v=>{v/=255;return v<=0.04045?v/12.92:Math.pow((v+0.055)/1.055,2.4);};
+  const L=0.2126*lin(+m[1])+0.7152*lin(+m[2])+0.0722*lin(+m[3]);
+  return (1.05/(L+0.05))>=4.5?"#fff":"#101114";
+}
+const tmapEl=document.getElementById("tmap");
+function kresliTmap(){
+  const W=tmapEl.clientWidth,H=tmapEl.clientHeight;
+  if(!W||!H||!jmena2.length){tmapEl.innerHTML="";return;}
+  const celkem=jmena2.reduce((s,j)=>s+j.n,0);
+  const items=jmena2.map(j=>({...j,plocha:j.n/celkem*W*H}));
+  const out=[]; squarify(items,0,0,W,H,out);
+  tmapEl.innerHTML=out.map(t=>{
+    const x=t.x+1,y=t.y+1,w=Math.max(0,t.w-2),h=Math.max(0,t.h-2);
+    const epsTxt=[...t.eps].sort().map(e=>"ep. "+e).join(", ");
+    const ukazJm=w>38&&h>17, ukazN=w>44&&h>40;
+    const fs=(w<72||h<42)?10.5:12.5;
+    return `<button class="tnode" data-tag="${t.tag}"
+      style="left:${x.toFixed(1)}px;top:${y.toFixed(1)}px;width:${w.toFixed(1)}px;height:${h.toFixed(1)}px;background:var(--s${slotJmena(t.tag)})"
+      title="${t.tag}: ${t.n} odkazů (${epsTxt}). Kliknutím filtrovat."
+      aria-label="${t.tag}, ${t.n} odkazů, ${epsTxt}. Kliknutím nastavíte filtr.">
+      ${ukazJm?`<span class="tname" lang="cs" style="font-size:${fs}px">${t.tag}</span>`:""}${ukazN?`<span class="tval">${t.n}</span>`:""}
+    </button>`;
+  }).join("");
+  tmapEl.querySelectorAll(".tnode").forEach(b=>{
+    b.style.color=inkPro(b);
+    b.addEventListener("click",()=>{
+      selJmeno.value=b.dataset.tag; vstup.value="";
+      uplatni();
+      document.getElementById("prehled").scrollIntoView({behavior:"smooth"});
+    });
+  });
+}
+let tmapTimer;
+window.addEventListener("resize",()=>{clearTimeout(tmapTimer);tmapTimer=setTimeout(kresliTmap,150);});
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",kresliTmap);}catch(e){}
+new MutationObserver(kresliTmap).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+kresliTmap();
+
+/* navigace: hamburger menu + samostatná stránka epizod (#epizody) */
+const burger=document.getElementById("burger"), menuEl=document.getElementById("menu");
+function zavriMenu(){menuEl.classList.remove("open");burger.classList.remove("open");burger.setAttribute("aria-expanded","false");}
+burger.addEventListener("click",e=>{
+  e.stopPropagation();
+  const o=menuEl.classList.toggle("open");
+  burger.classList.toggle("open",o);
+  burger.setAttribute("aria-expanded",String(o));
+});
+document.addEventListener("click",e=>{ if(!e.target.closest(".nav"))zavriMenu(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape")zavriMenu(); });
+menuEl.querySelectorAll("a").forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault(); zavriMenu();
+  const cil=a.getAttribute("href");
+  if(location.hash===cil)ukazPohled(); else location.hash=cil;
+}));
+document.querySelector("a.brand").addEventListener("click",e=>{
+  e.preventDefault(); zavriMenu();
+  if(location.hash==="#uvod"||!location.hash)ukazPohled(); else location.hash="#uvod";
+});
+
+const heroEl=document.getElementById("hero"), hlavniEl=document.getElementById("hlavni"), strEp=document.getElementById("stranka-epizody");
+function ukazPohled(){
+  const ep=location.hash==="#epizody";
+  heroEl.hidden=ep; hlavniEl.hidden=ep; strEp.hidden=!ep;
+  if(ep){ window.scrollTo(0,0); return; }
+  kresliTmap();
+  const id=location.hash.slice(1);
+  if(id==="uvod"||!id){ window.scrollTo(0,0); return; }
+  const cil=document.getElementById(id);
+  if(cil)cil.scrollIntoView();
+}
+window.addEventListener("hashchange",ukazPohled);
+ukazPohled();
+</script>
+</body>
+</html>
