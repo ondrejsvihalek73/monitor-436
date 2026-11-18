@@ -173,9 +173,11 @@ h1 .red{color:var(--accent)}
 .fsel{padding:7px 12px; border:1px solid var(--line); border-radius:99px; background:var(--card);
   color:var(--ink); font-family:var(--body); font-size:13.5px; cursor:pointer; max-width:220px}
 .fsel:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.freset{width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:var(--card); color:var(--muted);
+.fsel.aktivni,#hledat.aktivni{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
+.freset{width:32px; height:32px; border-radius:50%; border:1px solid var(--accent); box-shadow:0 0 0 1px var(--accent);
+  background:var(--card); color:var(--accent);
   cursor:pointer; font-size:13px; line-height:1; display:inline-flex; align-items:center; justify-content:center; padding:0}
-.freset:hover{border-color:var(--accent); color:var(--accent)}
+.freset:hover{background:var(--accent); color:#fff}
 .freset:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .freset[hidden]{display:none}
 
@@ -529,6 +531,10 @@ function uplatni(){
   });
   document.getElementById("zadne").classList.toggle("ukaz",videt===0);
   document.getElementById("fReset").hidden=!(q||ep||jm||me);
+  selEp.classList.toggle("aktivni",!!ep);
+  selJmeno.classList.toggle("aktivni",!!jm);
+  selMes.classList.toggle("aktivni",!!me);
+  vstup.classList.toggle("aktivni",!!q);
 }
 document.getElementById("fReset").addEventListener("click",()=>{
   vstup.value=""; selEp.value=""; selJmeno.value=""; selMes.value="";
